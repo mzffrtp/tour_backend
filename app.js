@@ -9,7 +9,6 @@ const app = express();
 app.use(express.json())
 
 //constants
-const port = 5173;
 
 
 //! middleware 
@@ -22,6 +21,6 @@ app.use((req, res, next) => {
 app.use("/api/v1/tours", tourRouter)
 app.use("/api/v1/users", userRouter)
 
-app.listen(port, () => {
-    console.log(`server listening on port ${port}`);
-});
+
+
+module.exports = app
