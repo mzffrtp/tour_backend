@@ -5,7 +5,6 @@ dotenv.config({ path: "./config.env" });
 
 const DB = process.env.DATABASE.replace("<PASS>", process.env.DATABASE_PASS);
 
-console.log("DB", DB);
 
 mongoose
     .connect(DB)
@@ -17,3 +16,5 @@ const port = process.env.PORT || 5173;
 app.listen(port, () => [
     console.log(`app listening on ${port} `)
 ])
+
+
