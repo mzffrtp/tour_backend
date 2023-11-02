@@ -5,7 +5,6 @@ dotenv.config({ path: "./config.env" });
 
 const DB = process.env.DATABASE.replace("<PASS>", process.env.DATABASE_PASS);
 
-
 mongoose
     .connect(DB)
     .then(() => console.log("server connected"))
