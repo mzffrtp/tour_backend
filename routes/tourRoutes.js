@@ -1,18 +1,26 @@
 const express = require("express");
 const {
-    getAllTours, createTour, updateTour, deleteTour, getTour
+    getAllTours, createTour, updateTour, deleteTour, getTour, aliasTopTours
 } = require("../controllers/tourControllers")
 
 const tourRouter = express.Router();
 
 //tours routing
-tourRouter.route("/")
+tourRouter
+    .route("/top-five-best")
+    .get(aliasTopTours, getAllTours)
+
+tourRouter
+    .route("/")
     .get(getAllTours)
     .post(createTour);
 
-tourRouter.route("/:id")
+tourRouter
+    .route("/:id")
     .get(getTour)
     .patch(updateTour)
     .delete(deleteTour)
+
+
 
 module.exports = tourRouter

@@ -1,9 +1,18 @@
 const Tour = require("../models/tourModel")
 const APIFeatures = require("../utils/apiFeatures")
 
+//! ALIAS
+//TODO middelware , "next" in params
+exports.aliasTopTours = (req, res, next) => {
+
+    req.query.limit = "5";
+    req.query.sort = "-ratingsAvarage,price";
+    req.query.fields = "name,duration,price,ratingsAvarage";
+    next(); //! IMPORTANT
+};
+
 exports.getAllTours = async (req, res) => {
     try {
-
         const features = new APIFeatures(Tour.find(), req.query)
             .filter()
             .sort()
@@ -97,3 +106,4 @@ exports.deleteTour = async (req, res) => {
         })
     }
 }
+
