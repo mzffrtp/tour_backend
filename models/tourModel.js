@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const tourSchema = mongoose.Schema({
+const tourSchema = new mongoose.Schema({
     name: {
         type: String,
         unique: [true, "one name for one tour"],
