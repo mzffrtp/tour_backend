@@ -33,7 +33,13 @@
       - same as in mongodb
         - $unwind: "$startDates" --> divide arrays
         - tourNames: { $push: "$name" } --> push --> to add fields X $project: { \_id: 0 } project --> to remove
-        - $addFields: { month: "$\_id" } documente alan eklem
+        - $addFields: { month: "$\_id" } --> to add a field to document
+
+---
+
+VIRTUAL PROPERTY
+other information by frontend, but not needed held in our backend server - model--> schema update - xSchema.virtual("virtualPropertyName).get(function(){
+return this.duration/7}) - update schema - {toJson: {virtual:true}}
 
 ---
 

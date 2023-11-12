@@ -57,10 +57,17 @@ const tourSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     }
+},
+    {
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true }
+    })
 
-
+//! VIRTUAL PROPERTY
+// other information by frontend, but not needed held in our backend server
+tourSchema.virtual("durationWeek").get(function () {
+    return this.duration / 7;
 })
-
 const Tour = mongoose.model("Tour", tourSchema);
 
 module.exports = Tour
