@@ -37,9 +37,19 @@
 
 ---
 
-VIRTUAL PROPERTY
-other information by frontend, but not needed held in our backend server - model--> schema update - xSchema.virtual("virtualPropertyName).get(function(){
-return this.duration/7}) - update schema - {toJson: {virtual:true}}
+- VIRTUAL PROPERTY
+  - other information by frontend, but not needed held in our backend server
+    - model--> schema update - xSchema.virtual("virtualPropertyName).get(function(){return this.duration/7})
+    - update schema - {toJson: {virtual:true}}
+
+---
+
+- DOCUMNET MIDDELEWAREs
+  - model
+    - updtae schema
+      - pre
+      - post
+  - next --> donot forget this as this is middlewarre
 
 ---
 

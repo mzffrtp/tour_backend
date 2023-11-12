@@ -1,4 +1,9 @@
 const mongoose = require("mongoose");
+const { default: slugify } = require("slugify");
+
+
+
+
 
 const tourSchema = new mongoose.Schema({
     name: {
@@ -56,8 +61,12 @@ const tourSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now()
+    },
+    slug: {
+        type: String
     }
 },
+    //TODO for sending virtual properties to frontend
     {
         toJSON: { virtuals: true },
         toObject: { virtuals: true }
@@ -67,6 +76,17 @@ const tourSchema = new mongoose.Schema({
 // other information by frontend, but not needed held in our backend server
 tourSchema.virtual("durationWeek").get(function () {
     return this.duration / 7;
+})
+
+//! DOCUMNET MIDDLEWAREs
+tourSchema.pre("save", function (next) {
+    this.slug = slugify(this.name)
+    next();
+})
+
+tourSchema.post("save", function (doc, next) {
+    console.log("saved document-->, doc")
+    next()
 })
 const Tour = mongoose.model("Tour", tourSchema);
 
