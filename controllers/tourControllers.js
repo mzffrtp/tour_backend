@@ -56,18 +56,33 @@ exports.getMonthlyPlan = async (req, res) => {
     try {
         const year = req.params.year * 1
         const monthlyPlan = await Tour.aggregate([
-            {
+            { //? to divide arrays into parts
                 $unwind: "$startDates"
             },
             {
+                //!FILTERS the documents passed to the next stage
                 $match: {
                     startDates: {
                         $gte: new Date(`${year}-01-01`),
                         $lte: new Date(`${year}-12-31`)
                     }
                 }
-            }
+            },
+            {
+                $group: {
+                    _id: { $month: "$startDates" },
+                    numTourStats: { $sum: 1 },
+                    tourNames: { $push: "$name" },
+                    rating: { $push: "$rating" }
 
+                }
+            },
+            {
+                $addFields: { month: "$_id", }
+            },
+            {
+                $project: { _id: 0, rating: 0 }
+            }
         ])
 
         res.status(200).json({
