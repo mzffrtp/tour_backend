@@ -49,7 +49,9 @@
     - updtae schema
       - pre
       - post
-  - next --> donot forget this as this is middlewarre
+    - next --> donot forget this as this is middlewarre
+    - query middleware exemple --> ex:secret tours shown just for admins
+    - aggregation middleware --> ex:secret tours for monthly plan
 
 ---
 
