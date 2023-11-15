@@ -92,7 +92,24 @@
     - pre middleware before saving --> userSchema.pre
     - passwordConfirm --> undefined // dont save to db.
 
-- JWT
+---
+
+- JWT - Jason Web Token
+
+  - 3 part
+    - header
+      - extra info
+        - cryting algorithm -- HS256
+        - type: "JWT", bearaer
+    - payload
+      - json data to be sent , {id:.., name:"..."}
+      - sent to frontend for user to login
+    - signature
+      - header + payload + crption key
+      - kind of user pass
+  - jsonwebtoken library
+
+  - LOGIN
 
 ---
 

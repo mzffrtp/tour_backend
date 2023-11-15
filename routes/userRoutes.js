@@ -3,10 +3,13 @@ const userRouter = express.Router();
 const {
     getAllUsers, createUser, getUser, updateUser, deleteUser
 } = require("../controllers/userControllers");
-const { signUp } = require("../controllers/authController");
+const { signUp, login } = require("../controllers/authController");
 
 //authentication routes
 userRouter.post("/signup", signUp)
+
+//login route
+userRouter.post("/login", login)
 
 //users routing
 userRouter
