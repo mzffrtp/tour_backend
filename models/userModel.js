@@ -1,5 +1,6 @@
 const { default: mongoose } = require("mongoose");
 const validator = require("validator")
+const bcrypt = require("bcrypt")
 
 
 const userSchema = new mongoose.Schema({
@@ -32,8 +33,13 @@ const userSchema = new mongoose.Schema({
                 return value === this.password
             },
             message: "Please confirm your password!"
-        }
-    }
+        },
+    },
+});
+
+userSchema.pre("save", async function () {
+    this.password = await bcrypt.hash(this.password, 12)
+    this.passwordConfirm = undefined
 })
 
 const User = mongoose.model("User", userSchema);

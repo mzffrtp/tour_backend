@@ -85,6 +85,13 @@
 
 ---
 
+- HASHing and SALTing PASSWORDS:
+
+  - userModel uupdate
+    - bcryptjs library
+    - pre middleware before saving --> userSchema.pre
+    - passwordConfirm --> undefined // dont save to db.
+
 - JWT
 
 ---
