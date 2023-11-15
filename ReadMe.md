@@ -55,6 +55,28 @@
 
 ---
 
+- VALIDATION
+
+  - model
+
+    - schema update
+
+  - BUILT IN validator
+
+    - name: minLenght[], maxLength[]
+    - difficulty enum: {
+      values: [],
+      message:""
+      }
+
+  - CUSTOM validator
+
+    - import validator
+    - pricediscount < price
+
+  - THIRD Party validations
+    - validator library
+
 - JWT
 
 ---
