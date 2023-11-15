@@ -77,6 +77,14 @@
   - THIRD Party validations
     - validator library
 
+---
+
+---
+
+## USER MANAGEMENT
+
+---
+
 - JWT
 
 ---
