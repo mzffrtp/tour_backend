@@ -114,6 +114,10 @@
 ---
 
 - GLOBAL ERROR MANAGEMENT
+  - undefined routes
+    - app.js app.all()
+  - error middle ware
+    - app.js app.use()
 
 ---
 
