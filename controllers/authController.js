@@ -1,8 +1,10 @@
 const User = require("../models/userModel");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const AppError = require("../utils/appError");
+const catchAsyc = require("../utils/catchAsyc");
 
 //!new account sign up
-exports.signUp = async (req, res) => {
+exports.signUp = catchAsyc(async (req, res, next) => {
     try {
         const newUser = await User.create(req.body)
 
@@ -19,25 +21,19 @@ exports.signUp = async (req, res) => {
             data: { newUser }
         })
     } catch (err) {
-        res.status(400).json({
-            status: "failed",
-            message: err.message
-        })
-
+        next(new AppError("Pls enter your mail and password!", 400))
     }
-};
+});
 
 //! LOGIN
-exports.login = async (req, res) => {
+exports.login = catchAsyc(async (req, res, next) => {
 
     const { email, password } = req.body;
 
     // email, pasword exsists?
-    if (!email || !password)
-        return res.status(400).json({
-            status: "failed",
-            message: "Please provide email and password in order to log in"
-        })
+    if (!email || !password) {
+        next(new AppError("Email and password shoul not be blank!",))
+    }
 
     // user with the email exits?
     //TODO ---> .select("+password") !!! pasword is secret, add select in order to compare for JWT
@@ -54,8 +50,5 @@ exports.login = async (req, res) => {
             message: "user loged in suceessfully",
             token: " "
         }) :
-        res.status(400).json({
-            status: "failed",
-            message: "email or password wrong"
-        })
-}
+        next(new AppError("Please provide your email and password", 400))
+});
