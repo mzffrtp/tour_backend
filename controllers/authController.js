@@ -82,5 +82,16 @@ exports.protectedRoutes = catchAsyc(async (req, res, next) => {
     if (activeUser.passwordChangedAfterToken(decoded.iat)) {
         return next(new AppError("You changed your password in a while, please log in again", 401))
     }
+    req.user = activeUser;
     next();
-})
+});
+
+exports.restrictTo = (...roles) => {
+    return (req, res, next) => {
+
+        if (!roles.includes(req.user.role)) {
+            return next(new AppError("You do not have permission to do this action!", 404)) //no authorization --> 404
+        };
+        next()
+    }
+}

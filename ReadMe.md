@@ -107,7 +107,7 @@
     - signature
       - header + payload + crption key
       - kind of user pass
-  - jsonwebtoken library
+  - jsonwebtokerole management" -m "authorizzationn library
 
   - LOGIN
 
@@ -133,3 +133,6 @@
       - password change?
         - update user model --> password changed at
     - Ex: just the admin role should delete tour
+      - role management
+      - update user model
+      -

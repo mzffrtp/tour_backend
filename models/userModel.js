@@ -36,6 +36,11 @@ const userSchema = new mongoose.Schema({
         },
     },
     passwordChangeAt: Date,
+    role: {
+        type: String,
+        enum: ["user", "guide", "guideLead", "admin"],
+        default: "user"
+    }
 });
 
 userSchema.pre("save", async function () {
@@ -52,8 +57,10 @@ userSchema.methods.passwordChangedAfterToken = function (JWTTimestamp) {
 
     if (this.passwordChangeAt) {
         const changedTimeStamp = parseInt(this.passwordChangeAt.getTime() / 1000, 10)
+
+        return JWTTimestamp < changedTimeStamp
     };
-    return JWTTimestamp < changedTimeStamp
+    return false
 };
 const User = mongoose.model("User", userSchema);
 module.exports = User
