@@ -1,7 +1,8 @@
 const express = require("express");
 const {
     getAllTours, createTour, updateTour, deleteTour, getTour, aliasTopTours, getTourStats, getMonthlyPlan
-} = require("../controllers/tourControllers")
+} = require("../controllers/tourControllers");
+const { protectedRoutes } = require("../controllers/authController");
 
 const tourRouter = express.Router();
 
@@ -22,8 +23,8 @@ tourRouter
 // common
 tourRouter
     .route("/")
-    .get(getAllTours)
-    .post(createTour);
+    .get(protectedRoutes, getAllTours)
+    .post(protectedRoutes, createTour);
 
 tourRouter
     .route("/:id")

@@ -121,4 +121,15 @@
 
 ---
 
--ROLE MANAGEMENT
+- ROLE MANAGEMENT
+  - authorization
+    - EX: just the ones with valid jwt token fetch tours
+      - protected route
+      - token is sent as header in url--> postman --> bearer
+        jwt
+      - jwt.verify --> if the token is valid
+      - activeUser?
+      - jwt expires date? -->
+      - password change?
+        - update user model --> password changed at
+    - Ex: just the admin role should delete tour
