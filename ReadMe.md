@@ -135,4 +135,7 @@
     - Ex: just the admin role should delete tour
       - role management
       - update user model
-      -
+    - password reset
+      - auth controler --> ne methods
+      - new routes --> user router
+      - update userSchems--> a new method with js crypto

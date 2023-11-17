@@ -3,7 +3,12 @@ const userRouter = express.Router();
 const {
     getAllUsers, createUser, getUser, updateUser, deleteUser
 } = require("../controllers/userControllers");
-const { signUp, login } = require("../controllers/authController");
+
+const { signUp, login, forgotPassword, resetPassword } = require("../controllers/authController");
+
+// password actions
+userRouter.post("/forgotPassword", forgotPassword);
+userRouter.post("/resetPassword", resetPassword)
 
 //authentication routes
 userRouter.post("/signup", signUp)

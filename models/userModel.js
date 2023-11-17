@@ -1,6 +1,7 @@
 const { default: mongoose } = require("mongoose");
 const validator = require("validator")
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
+var crypto = require("crypto")
 
 
 const userSchema = new mongoose.Schema({
@@ -40,7 +41,8 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ["user", "guide", "guideLead", "admin"],
         default: "user"
-    }
+    },
+    passwordResetToken: String
 });
 
 userSchema.pre("save", async function () {
@@ -62,5 +64,24 @@ userSchema.methods.passwordChangedAfterToken = function (JWTTimestamp) {
     };
     return false
 };
+
+
+userSchema.methods.createPasswordResetToken = function () {
+
+    //!token for resetting password
+    const resetToken = crypto.randomBytes(33).toString("hex")
+    console.log(resetToken);
+
+    //! token saved in db  encrypted due to security reasons
+    this.passwordResetToken = crypto
+        .createHash("sha256")
+        .update(resetToken)
+        .digest("hex")
+
+    return resetToken
+};
+
+
+
 const User = mongoose.model("User", userSchema);
 module.exports = User
