@@ -109,7 +109,7 @@
       - kind of user pass
   - jsonwebtokerole management" -m "authorizzationn library
 
-  - LOGIN
+  - SIGN UP
 
 ---
 
@@ -139,3 +139,5 @@
       - auth controler --> ne methods
       - new routes --> user router
       - update userSchems--> a new method with js crypto
+      - sendEmail --> nodemailer library
+        - mailtrap lib --> testing and sending mail in real time

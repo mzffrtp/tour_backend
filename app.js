@@ -1,4 +1,3 @@
-const exp = require("constants");
 const express = require("express")
 const fs = require("fs")
 var morgan = require("morgan");

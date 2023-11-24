@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const AppError = require("../utils/appError");
 const catchAsyc = require("../utils/catchAsyc");
+const sendMail = require("../utils/sendEmail");
 
 //!new account sign up
 exports.signUp = catchAsyc(async (req, res, next) => {
@@ -106,6 +107,35 @@ exports.forgotPassword = catchAsyc(async (req, res, next) => {
     //TODO create token for password resetting
     const resetToken = user.createPasswordResetToken();
     await user.save({ validateBeforeSave: false })
+
+
+    //TODO Send Email
+
+    const resetUrl = `http://127.0.01:5173/api/v1/${resetToken}`
+
+    try {
+        await sendMail({
+            email: user.email,
+            subject: "Reset password",
+            text: "Here is your reset password link. Please rest your passsword in 10 minutes! Hava a nice day " + resetUrl
+        })
+
+
+        res.status(200).json({
+            status: "success",
+            message: "reset url was send to user!"
+        })
+
+    } catch (err) {
+        console.log("reset password mail nor sent -->", err);
+        user.passwordResetToken = undefined
+        user.passwordresetTokenExpires = undefined;
+        await user.save({ validateBeforeSave: false })
+
+        next(new AppError(
+            "Error at reset password sending mail process!", 500
+        ))
+    }
 })
 
 //! Reset Password

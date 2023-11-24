@@ -1,7 +1,8 @@
 const { default: mongoose } = require("mongoose");
 const validator = require("validator")
 const bcrypt = require("bcrypt");
-var crypto = require("crypto")
+var crypto = require("crypto");
+const moment = require("moment/moment");
 
 
 const userSchema = new mongoose.Schema({
@@ -42,10 +43,14 @@ const userSchema = new mongoose.Schema({
         enum: ["user", "guide", "guideLead", "admin"],
         default: "user"
     },
-    passwordResetToken: String
+    passwordResetToken: String,
+
+    passwordresetTokenExpires: Date
 });
 
-userSchema.pre("save", async function () {
+userSchema.pre("save", async function (next) {
+
+    if (!this.isModified("password")) return next()
     this.password = await bcrypt.hash(this.password, 12)
     this.passwordConfirm = undefined
 })
@@ -77,6 +82,8 @@ userSchema.methods.createPasswordResetToken = function () {
         .createHash("sha256")
         .update(resetToken)
         .digest("hex")
+
+    this.passwordresetTokenExpires = moment(Date.now()).add(10, "minutes")
 
     return resetToken
 };
