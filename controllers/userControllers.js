@@ -54,3 +54,13 @@ exports.updateMe = catchAsyc(async (req, res, next) => {
         }
     })
 })
+
+exports.deleteMe = catchAsyc(async (req, res, next) => {
+    // TODO find user and UNACTIVATE
+    await User.findByIdAndUpdate(req.user.id, { active: false })
+
+    res.status(204).json({
+        staus: "success",
+        data: null
+    })
+})

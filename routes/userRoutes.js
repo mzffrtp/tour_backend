@@ -1,7 +1,7 @@
 const express = require("express");
 const userRouter = express.Router();
 const {
-    getAllUsers, createUser, getUser, updateUser, deleteUser, updateMe
+    getAllUsers, createUser, getUser, updateUser, deleteUser, updateMe, deleteMe
 } = require("../controllers/userControllers");
 
 const { signUp, login, forgotPassword, resetPassword, protectedRoutes, updateMypassword } = require("../controllers/authController");
@@ -13,6 +13,9 @@ userRouter.patch("/updateMyPassword/", protectedRoutes, updateMypassword)
 
 // update user
 userRouter.patch("/updateMe", protectedRoutes, updateMe)
+
+// unactivate account
+userRouter.delete("/deleteMe", protectedRoutes, deleteMe)
 
 //authentication routes
 userRouter.post("/signup", signUp)

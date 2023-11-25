@@ -45,7 +45,13 @@ const userSchema = new mongoose.Schema({
     },
     passwordResetToken: String,
 
-    passwordresetTokenExpires: Date
+    passwordresetTokenExpires: Date,
+
+    active: {
+        type: String,
+        default: true,
+        select: false
+    }
 });
 
 userSchema.pre("save", async function (next) {
@@ -92,7 +98,10 @@ userSchema.methods.createPasswordResetToken = function () {
     return resetToken
 };
 
-
+userSchema.pre(/^find/, function (next) {
+    this.find({ active: { $ne: false } })
+    next()
+})
 
 const User = mongoose.model("User", userSchema);
 module.exports = User
