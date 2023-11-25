@@ -141,3 +141,13 @@
       - update userSchems--> a new method with js crypto
       - sendEmail --> nodemailer library
         - mailtrap lib --> testing and sending mail in real time
+
+---
+
+- Security
+  - express rate limit --> limits queries from same ip
+  - cookies
+  - helmet --> for headers
+  - express mongoose sanitize --> data sanitization against query injections
+  - xss-clean --> js in httpp
+  - hpp --> parameter polution

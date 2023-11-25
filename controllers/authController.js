@@ -4,6 +4,7 @@ const AppError = require("../utils/appError");
 const catchAsyc = require("../utils/catchAsyc");
 const sendMail = require("../utils/sendEmail");
 const crypto = require("crypto")
+const moment = require("moment")
 
 
 //! Create JWT Token
@@ -17,9 +18,16 @@ const signToken = (id) => {
 const createSendToken = (user, statusCode, res) => {
     const token = signToken(user._id)
 
+    //! token should be send by cookies
+
+    res.cookie("jwt", token, {
+        expires: moment(Date.now()).add(90, "days").toDate(),
+        httpOnly: true,
+        secure: false //! true after deployment
+    })
+
     res.status(statusCode).json({
         status: "success",
-        token,
         data: { user }
     })
 
