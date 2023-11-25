@@ -1,14 +1,18 @@
 const express = require("express");
 const userRouter = express.Router();
 const {
-    getAllUsers, createUser, getUser, updateUser, deleteUser
+    getAllUsers, createUser, getUser, updateUser, deleteUser, updateMe
 } = require("../controllers/userControllers");
 
-const { signUp, login, forgotPassword, resetPassword } = require("../controllers/authController");
+const { signUp, login, forgotPassword, resetPassword, protectedRoutes, updateMypassword } = require("../controllers/authController");
 
 // password actions
 userRouter.post("/forgotPassword", forgotPassword);
-userRouter.post("/resetPassword", resetPassword)
+userRouter.patch("/resetPassword/:token", resetPassword)
+userRouter.patch("/updateMyPassword/", protectedRoutes, updateMypassword)
+
+// update user
+userRouter.patch("/updateMe", protectedRoutes, updateMe)
 
 //authentication routes
 userRouter.post("/signup", signUp)

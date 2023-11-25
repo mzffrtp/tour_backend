@@ -55,6 +55,11 @@ userSchema.pre("save", async function (next) {
     this.passwordConfirm = undefined
 })
 
+userSchema.pre("save", function (next) {
+    if (!this.isModified("password") || this.isNew) return next();
+    this.passwordChangeAt = Date.now() - 1000;
+    next();
+})
 userSchema.methods.correctPassword = async function (providedPassword, userPassword) {
 
     return await bcrypt.compare(providedPassword, userPassword)
@@ -69,7 +74,6 @@ userSchema.methods.passwordChangedAfterToken = function (JWTTimestamp) {
     };
     return false
 };
-
 
 userSchema.methods.createPasswordResetToken = function () {
 
