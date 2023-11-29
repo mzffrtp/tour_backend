@@ -8,7 +8,8 @@ const rateLimiter = require("./utils/rateLimiter");
 const helmet = require("helmet")
 const mongoSanitize = require("express-mongo-sanitize");
 const xssClean = require("xss-clean");
-const hpp = require("hpp")
+const hpp = require("hpp");
+const reviewRouter = require("./routes/reviewRoute");
 
 const app = express();
 app.use(express.json({ limit: "10kb" }))
@@ -41,6 +42,8 @@ app.use((req, res, next) => {
 //routes
 app.use("/api/v1/tours", tourRouter)
 app.use("/api/v1/users", userRouter)
+app.use("/api/v1/review", reviewRouter)
+
 
 //! undefined route - error management
 app.all("*", (req, res, next) => {

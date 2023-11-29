@@ -5,6 +5,7 @@ const {
 } = require("../controllers/userControllers");
 
 const { signUp, login, forgotPassword, resetPassword, protectedRoutes, updateMypassword } = require("../controllers/authController");
+const { createReview } = require("../controllers/reviewController");
 
 // password actions
 userRouter.post("/forgotPassword", forgotPassword);
@@ -34,5 +35,7 @@ userRouter
     .get(getUser)
     .patch(updateUser)
     .delete(deleteUser)
+
+
 
 module.exports = userRouter

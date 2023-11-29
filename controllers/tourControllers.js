@@ -127,6 +127,7 @@ exports.createTour = async (req, res) => {
     //! save to mongodb as document
     try {
         const newTour = await Tour.create(req.body)
+        console.log("new tour", newTour);
 
         res.status(200).json({
             status: "success",
@@ -137,13 +138,19 @@ exports.createTour = async (req, res) => {
             status: "fail",
             message: err
         })
+        console.log("err create tour", err);
     }
 
 
 };
 exports.getTour = async (req, res) => {
     try {
-        const tourFounded = await Tour.findById(req.params.id)
+        const tourFounded = await Tour.findById(req.params.id).populate({
+            path: "review",
+            select: "-createdAt"
+        })
+        console.log(tourFounded.guides
+        );
         // const tourFounded = wait Tour.findById({_id: req.params.id})
         res.status(200).json({
             status: "success",
@@ -154,13 +161,14 @@ exports.getTour = async (req, res) => {
             status: "failed",
             message: err
         })
-
+        console.log("get tour error", err);
     }
 }
 exports.updateTour = async (req, res) => {
 
     try {
         const updatedTour = await Tour.findByIdAndUpdate(req.params.id, req.body)
+        console.log("updatedTour", updatedTour);
         res.status(200).json({
             status: "success",
             data: { tour: updatedTour }

@@ -3,8 +3,12 @@ const {
     getAllTours, createTour, updateTour, deleteTour, getTour, aliasTopTours, getTourStats, getMonthlyPlan
 } = require("../controllers/tourControllers");
 const { protectedRoutes, restrictTo } = require("../controllers/authController");
+const { createReview } = require("../controllers/reviewController");
 
 const tourRouter = express.Router();
+
+// nested tours
+tourRouter.route("/:tourId/review").post(protectedRoutes, createReview)
 
 //tours routing
 tourRouter

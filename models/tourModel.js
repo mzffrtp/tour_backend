@@ -79,7 +79,32 @@ const tourSchema = new mongoose.Schema({
     },
     slug: {
         type: String
-    }
+    },
+    startLocation: {
+        description: String,
+        type: {
+            type: String,
+            default: "Point",
+            enum: ["Point"],
+        },
+        coordinates: [Number],
+        address: String
+    },
+    locations: [{
+        type: {
+            type: String,
+            default: "Point",
+            enum: ["Point"]
+        },
+        description: String,
+        coordinates: [Number],
+        day: Number,
+        address: String
+    }],
+    guides: [{
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+    }],
 },
     //TODO for sending virtual properties to frontend
     {
@@ -93,6 +118,13 @@ tourSchema.virtual("durationWeek").get(function () {
     return this.duration / 7;
 })
 
+//! VIRTUAL POPULATE
+tourSchema.virtual("review", {
+    ref: "Review",
+    foreignField: "tour",
+    localField: "_id"
+})
+
 //! DOCUMNET MIDDLEWAREs
 tourSchema.pre("save", function (next) {
     this.slug = slugify(this.name)
@@ -104,11 +136,20 @@ tourSchema.post("save", function (doc, next) {
     next()
 })
 
+
 //! QUERY MIDDLEWARE
 tourSchema.pre(/^find/, function (next) {
     this.find({ secretTour: { $ne: true } });
     next()
 });
+//? POPULATE--> 
+tourSchema.pre(/^find/, function (next) {
+    this.populate({
+        path: "guides",
+        select: "-_v -passwordChangedAt -passwordResetToken -passwordresetTokenExpires"
+    });
+    next();
+})
 
 //! AGGRETAION MIDDLEWARE
 tourSchema.pre("aggregate", function (next) {
@@ -117,6 +158,7 @@ tourSchema.pre("aggregate", function (next) {
     });
     next();
 })
+
 
 //TODO
 const Tour = mongoose.model("Tour", tourSchema);

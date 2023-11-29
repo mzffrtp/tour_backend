@@ -11,7 +11,7 @@ mongoose
     .then(() => console.log("server connected"))
     .catch(() => console.log("server not connected"))
 
-const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours-simple.json`))
+const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`))
 const importData = async () => {
     try {
         await Tour.create(tours)
@@ -35,3 +35,9 @@ if (process.argv[2] === "--import") {
 } else if (process.argv[2] === "--delete") {
     deleteData()
 }
+
+//! Cleaning DB
+  //? node ./dev-data/data/import-dev-data.js --delete
+
+//! Migrating to DB
+  //? node ./dev-data/data/import-dev-data.js --import
