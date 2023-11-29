@@ -4,11 +4,12 @@ const {
 } = require("../controllers/tourControllers");
 const { protectedRoutes, restrictTo } = require("../controllers/authController");
 const { createReview } = require("../controllers/reviewController");
+const reviewRouter = require("./reviewRoute");
 
-const tourRouter = express.Router();
+const tourRouter = express.Router()
 
 // nested tours
-tourRouter.route("/:tourId/review").post(protectedRoutes, createReview)
+tourRouter.use("/:tourId/review", reviewRouter)
 
 //tours routing
 tourRouter
