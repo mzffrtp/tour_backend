@@ -29,7 +29,9 @@ const tourSchema = new mongoose.Schema({
     },
     ratingsAverage: {
         type: Number,
-        default: 4.0
+        default: 4.0,
+        min: 1,
+        max: 5
     },
     ratingsQuantity: {
         type: Number,
@@ -115,6 +117,9 @@ const tourSchema = new mongoose.Schema({
 //? descending price, ascending rating index
 tourSchema.index({ price: 1, ratingsAverage: -1 })
 
+//! geo should be used with INDEX
+tourSchema.index({ startLocation: "2dsphere" })
+
 //! VIRTUAL PROPERTY
 // other information by frontend, but not needed held in our backend server
 tourSchema.virtual("durationWeek").get(function () {
@@ -155,12 +160,14 @@ tourSchema.pre(/^find/, function (next) {
 })
 
 //! AGGRETAION MIDDLEWARE
+/*
 tourSchema.pre("aggregate", function (next) {
     this.pipeline().unshift({
         $match: { secretTour: { $ne: true } }
     });
     next();
 })
+*/
 
 
 //TODO

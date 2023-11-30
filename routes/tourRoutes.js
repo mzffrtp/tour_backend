@@ -1,6 +1,6 @@
 const express = require("express");
 const {
-    getAllTours, createTour, updateTour, deleteTour, getTour, aliasTopTours, getTourStats, getMonthlyPlan
+    getAllTours, createTour, updateTour, deleteTour, getTour, aliasTopTours, getTourStats, getMonthlyPlan, getToursWithin, getDistanceTour
 } = require("../controllers/tourControllers");
 const { protectedRoutes, restrictTo } = require("../controllers/authController");
 const reviewRouter = require("./reviewRoute");
@@ -23,6 +23,11 @@ tourRouter
 tourRouter
     .route("/montly-plan/:year")
     .get(protectedRoutes, restrictTo("admin"), getMonthlyPlan)
+
+// Geo routes
+tourRouter.get("/tours-within/:distance/center/:latlng/unit/:unit", getToursWithin)
+
+tourRouter.get("/distances/:latlng/unit/:unit", getDistanceTour)
 
 // common
 tourRouter
