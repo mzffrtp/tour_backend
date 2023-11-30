@@ -1,14 +1,10 @@
 const User = require("../models/userModel")
 const AppError = require("../utils/appError")
-const catchAsyc = require("../utils/catchAsyc")
+const catchAsyc = require("../utils/catchAsync")
 const filterObj = require("../utils/filterObj")
+const { deleteOne, updateOne, getAll } = require("./handlerFactory")
 
-exports.getAllUsers = (req, res) => {
-    res.status(500).json({
-        status: "error",
-        message: "route not defined yet"
-    })
-}
+exports.getAllUsers = getAll(User)
 exports.createUser = (req, res) => {
     res.status(500).json({
         status: "error",
@@ -21,18 +17,8 @@ exports.getUser = (req, res) => {
         message: "route not defined yet"
     })
 }
-exports.updateUser = (req, res) => {
-    res.status(500).json({
-        status: "error",
-        message: "route not defined yet"
-    })
-}
-exports.deleteUser = (req, res) => {
-    res.status(500).json({
-        status: "error",
-        message: "route not defined yet"
-    })
-}
+exports.updateUser = updateOne(User)
+exports.deleteUser = deleteOne(User)
 
 exports.updateMe = catchAsyc(async (req, res, next) => {
     //TODO 1- error for password updating

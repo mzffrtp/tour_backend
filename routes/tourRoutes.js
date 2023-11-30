@@ -3,7 +3,6 @@ const {
     getAllTours, createTour, updateTour, deleteTour, getTour, aliasTopTours, getTourStats, getMonthlyPlan
 } = require("../controllers/tourControllers");
 const { protectedRoutes, restrictTo } = require("../controllers/authController");
-const { createReview } = require("../controllers/reviewController");
 const reviewRouter = require("./reviewRoute");
 
 const tourRouter = express.Router()
@@ -23,13 +22,13 @@ tourRouter
 
 tourRouter
     .route("/montly-plan/:year")
-    .get(getMonthlyPlan)
+    .get(protectedRoutes, restrictTo("admin"), getMonthlyPlan)
 
 // common
 tourRouter
     .route("/")
-    .get(protectedRoutes, getAllTours)
-    .post(protectedRoutes, createTour);
+    .get(getAllTours)
+    .post(protectedRoutes, restrictTo("admin"), createTour);
 
 tourRouter
     .route("/:id")

@@ -146,7 +146,7 @@ tourSchema.pre(/^find/, function (next) {
 tourSchema.pre(/^find/, function (next) {
     this.populate({
         path: "guides",
-        select: "-_v -passwordChangedAt -passwordResetToken -passwordresetTokenExpires"
+        select: "-__v -passwordChangedAt -passwordResetToken -passwordresetTokenExpires"
     });
     next();
 })
