@@ -165,6 +165,14 @@
 
 - virtual populate for reviews in tours--> better performance
 
+---
+
 # Code review
 
 - see handlerFactory under controllers
+
+---
+
+# Perfromance
+
+- index

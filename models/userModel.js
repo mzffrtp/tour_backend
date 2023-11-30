@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, "Please provide a password"],
-        minLength: 8,
+        minLength: 5,
         select: false
     },
 
@@ -66,6 +66,8 @@ userSchema.pre("save", function (next) {
     this.passwordChangeAt = Date.now() - 1000;
     next();
 })
+
+
 userSchema.methods.correctPassword = async function (providedPassword, userPassword) {
 
     return await bcrypt.compare(providedPassword, userPassword)

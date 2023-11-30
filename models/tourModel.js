@@ -111,6 +111,9 @@ const tourSchema = new mongoose.Schema({
         toJSON: { virtuals: true },
         toObject: { virtuals: true }
     })
+//! INDEX for performance
+//? descending price, ascending rating index
+tourSchema.index({ price: 1, ratingsAverage: -1 })
 
 //! VIRTUAL PROPERTY
 // other information by frontend, but not needed held in our backend server
