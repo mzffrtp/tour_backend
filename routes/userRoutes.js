@@ -1,7 +1,7 @@
 const express = require("express");
 const userRouter = express.Router();
 const {
-    getAllUsers, createUser, getUser, updateUser, deleteUser, updateMe, deleteMe, uploadUserPhoto
+    getAllUsers, createUser, getUser, updateUser, deleteUser, updateMe, deleteMe, uploadUserPhoto, resizePhoto
 } = require("../controllers/userControllers");
 
 const { signUp, login, forgotPassword, resetPassword, protectedRoutes, updateMypassword, restrictTo } = require("../controllers/authController");
@@ -24,7 +24,7 @@ userRouter.use(protectedRoutes)
 userRouter.patch("/updateMyPassword/", updateMypassword)
 
 // update user
-userRouter.patch("/updateMe", uploadUserPhoto, updateMe)
+userRouter.patch("/updateMe", uploadUserPhoto, resizePhoto, updateMe)
 
 // unactivate account
 userRouter.delete("/deleteMe", deleteMe)

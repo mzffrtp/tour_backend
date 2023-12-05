@@ -176,3 +176,15 @@
 # Perfromance
 
 - index
+
+---
+
+# Photo uploading
+
+- multer
+- reseizing --> sharp lib.
+
+See backend documentation here!
+https://documenter.getpostman.com/view/26348074/2s9YeLYpji
+
+![](tour-backend.png)

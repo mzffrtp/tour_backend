@@ -42,7 +42,7 @@ exports.createOne = (Model) => catchAsyc(async (req, res, next) => {
 });
 
 exports.getOne = (Model, populateOpts) => catchAsyc(async (req, res, next) => {
-    let query = Tour.findById(req.params.id);
+    let query = Model.findById(req.params.id);
 
     if (populateOpts) query = query.populate(populateOpts)
 
